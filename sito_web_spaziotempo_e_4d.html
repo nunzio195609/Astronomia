@@ -1,267 +1,556 @@
 <!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lo Spaziotempo & La 4ª Dimensione</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Atlante Astronomico Didattico</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js CDN for dynamic charts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0b0f19;
-            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #d1d5db;
+            user-select: none;
         }
-        .gradient-text {
-            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .win-window {
+            background-color: #e5e7eb;
+            border: 2px solid #9ca3af;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
         }
-        .glass-card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+
+        .win-titlebar {
+            background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+        }
+
+        .win-button {
+            background-color: #ffffff;
+            border: 1px solid #94a3b8;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 1px 2px rgba(0,0,0,0.05);
+            transition: all 0.1s ease;
+        }
+
+        .win-button:hover {
+            background-color: #f1f5f9;
+            border-color: #3b82f6;
+        }
+
+        .win-button:active {
+            background-color: #e2e8f0;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .list-selected {
+            background-color: #2563eb !important;
+            color: white !important;
+        }
+
+        /* Custom Scrollbars for Application feel */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-left: 1px solid #cbd5e1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 2px;
+            border: 2px solid #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+<body class="min-h-screen flex items-center justify-center p-2 sm:p-4 overflow-x-hidden">
 
-    <nav class="sticky top-0 z-50 glass-card border-b border-slate-800 px-6 py-4">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <i class="fa-solid fa-atom text-cyan-400 text-2xl"></i>
-                <span class="font-bold text-lg tracking-wider text-white">SPAZIOTEMPO<span class="text-cyan-400">.4D</span></span>
-            </div>
-            <div class="hidden md:flex gap-6 text-sm font-medium text-slate-300">
-                <a href="#intro" class="hover:text-cyan-400 transition-colors">Ippazia e Simplicio</a>
-                <a href="#diagram" class="hover:text-cyan-400 transition-colors">Il Grafico del Tempo</a>
-                <a href="#calculator" class="hover:text-cyan-400 transition-colors">Calcolatore</a>
-            </div>
-        </div>
-    </nav>
-
-    <header id="intro" class="relative max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
-        <div class="inline-block px-4 py-1.5 mb-6 rounded-full glass-card text-xs font-semibold text-cyan-300 tracking-wide border border-cyan-500/30">
-            🌌 ESPLORAZIONE INTERATTIVA DELLA RELATIVITÀ
-        </div>
-        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
-            Cosa significa davvero <br><span class="gradient-text">"In Questo Momento"</span> lassù?
-        </h1>
-        <p class="text-slate-400 text-lg sm:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-            Ispirato al dialogo tra Simplicio ed Ippazia. Scopri perché lo spazio e il tempo non sono entità separate, ma un unico tessuto elasticizzato a 4 dimensioni.
-        </p>
-    </header>
-
-    <section class="max-w-6xl mx-auto px-6 py-8 grid md:grid-cols-3 gap-6">
-        <div class="glass-card p-6 rounded-2xl hover:border-cyan-500/50 transition-all">
-            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-4 text-xl">
-                <i class="fa-solid fa-clock"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-2 text-white">Nessun "Adesso" Universale</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">
-                La luce impiega tempo per viaggiare. Guardare una stella distante 50 anni luce significa osservare il suo passato di mezzo secolo fa.
-            </p>
+    <!-- SCREEN 1: WELCOME SCREEN -->
+    <div id="screen-welcome" class="w-full max-w-4xl bg-gray-200 p-4 sm:p-8 rounded-lg shadow-2xl flex flex-col items-center justify-center min-h-[600px] border border-gray-300">
+        
+        <!-- Header Title Banner -->
+        <div class="bg-black text-white text-lg sm:text-xl font-bold py-2 px-12 tracking-wider uppercase mb-6 shadow-md border border-gray-700 text-center">
+            ATLANTE ASTRONOMICO DIDATTICO
         </div>
 
-        <div class="glass-card p-6 rounded-2xl hover:border-indigo-500/50 transition-all">
-            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-4 text-xl">
-                <i class="fa-solid fa-cube"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-2 text-white">La 4ª Dimensione</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">
-                Spazio e tempo sono fusi. Più ti muovi nello spazio, meno ti muovi nel tempo. L'orologio rallenta per chi viaggia rapido!
-            </p>
+        <!-- Galaxy Image Frame -->
+        <div class="relative w-full max-w-2xl h-[360px] sm:h-[420px] bg-black border-4 border-black overflow-hidden shadow-inner flex items-center justify-center">
+            <img id="galaxy-img" src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=1200&auto=format&fit=crop" 
+                 alt="Galassia" 
+                 class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                 onerror="this.src='https://placehold.co/800x600/050515/ffffff?text=Galassia+Spirale'">
         </div>
 
-        <div class="glass-card p-6 rounded-2xl hover:border-purple-500/50 transition-all">
-            <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-4 text-xl">
-                <i class="fa-solid fa-globe"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-2 text-white">La Gravità Curva il Tempo</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">
-                Masse gigantesche come Giove o il Sole deformano lo Spaziotempo: la gravità fa scorrere il tempo più lentamente.
-            </p>
+        <!-- Navigation Buttons -->
+        <div class="flex gap-6 mt-8 w-full max-w-xs justify-center">
+            <button onclick="goToScreen('screen-menu')" class="win-button w-32 py-1.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-800 focus:ring-2 focus:ring-blue-500">
+                ENTRA
+            </button>
+            <button onclick="showMessage('Applicazione chiusa. Grazie per aver usato l\'Atlante Astronomico!')" class="win-button w-32 py-1.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-800">
+                ESCI
+            </button>
         </div>
-    </section>
+    </div>
 
-    <section id="diagram" class="max-w-5xl mx-auto px-6 py-12">
-        <div class="glass-card p-8 rounded-3xl border border-slate-700">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold text-white mb-2">Diagramma dello Spaziotempo (Minkowski Semplificato)</h2>
-                <p class="text-slate-400 text-sm">
-                    Usa il cursore della velocità per inclinare la freccia dello spaziotempo. Nota come la velocità nel tempo diminuisca all'aumentare di quella nello spazio.
-                </p>
+    <!-- SCREEN 2: MAIN MENU -->
+    <div id="screen-menu" class="hidden w-full max-w-4xl bg-gray-100 rounded-lg shadow-2xl overflow-hidden border-2 border-gray-400 min-h-[580px] flex flex-col justify-between">
+        
+        <!-- Window TitleBar -->
+        <div class="win-titlebar px-3 py-1.5 flex justify-between items-center text-xs font-semibold">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-window-maximize text-blue-400"></i>
+                <span>FrmMenuPrincipale</span>
+            </div>
+            <div class="flex gap-1">
+                <button class="px-2 py-0.5 hover:bg-gray-700 text-gray-300">_</button>
+                <button class="px-2 py-0.5 hover:bg-gray-700 text-gray-300">□</button>
+                <button onclick="goToScreen('screen-welcome')" class="px-2 py-0.5 hover:bg-red-600 text-white">✕</button>
+            </div>
+        </div>
+
+        <!-- Menu Header -->
+        <div class="bg-[#112233] text-white py-6 px-4 text-center border-b border-gray-700 shadow-sm">
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-widest uppercase">
+                ATLANTE ASTRONOMICO DIDATTICO
+            </h1>
+        </div>
+
+        <!-- Menu Navigation Options -->
+        <div class="flex-1 flex flex-col items-center justify-center p-6 gap-5">
+            <button onclick="goToScreen('screen-messier')" class="win-button w-full max-w-md py-3 px-6 flex items-center justify-center gap-3 text-sm font-bold uppercase text-gray-800 hover:text-blue-600 shadow-sm">
+                <i class="fa-solid fa-telescope text-gray-600"></i>
+                <span>OGGETTI MESSIER E CATALOGO</span>
+            </button>
+
+            <button onclick="showMessage('Sezione Sistema Solare in caricamento...')" class="win-button w-full max-w-md py-3 px-6 flex items-center justify-center gap-3 text-sm font-bold uppercase text-gray-800 hover:text-blue-600 shadow-sm">
+                <i class="fa-solid fa-globe-americas text-gray-600"></i>
+                <span>SISTEMA SOLARE</span>
+            </button>
+
+            <button onclick="showMessage('Sezione Costellazioni in caricamento...')" class="win-button w-full max-w-md py-3 px-6 flex items-center justify-center gap-3 text-sm font-bold uppercase text-gray-800 hover:text-blue-600 shadow-sm">
+                <i class="fa-solid fa-draw-polygon text-gray-600"></i>
+                <span>COSTELLAZIONI</span>
+            </button>
+
+            <button onclick="showMessage('Sezione Stelle in caricamento...')" class="win-button w-full max-w-md py-3 px-6 flex items-center justify-center gap-3 text-sm font-bold uppercase text-gray-800 hover:text-blue-600 shadow-sm">
+                <i class="fa-solid fa-sun text-gray-600"></i>
+                <span>STELLE</span>
+            </button>
+        </div>
+
+        <!-- Bottom Actions -->
+        <div class="p-4 flex justify-end border-t border-gray-300 bg-gray-200">
+            <button onclick="goToScreen('screen-welcome')" class="win-button px-8 py-1.5 text-xs font-bold uppercase text-gray-800">
+                FINE
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: MESSIER EXPLORER -->
+    <div id="screen-messier" class="hidden w-full max-w-[1450px] bg-gray-200 rounded-lg shadow-2xl overflow-hidden border-2 border-gray-400 text-gray-900 text-xs flex flex-col h-[92vh]">
+        
+        <!-- Top Filter Bar -->
+        <div class="bg-gray-100 p-2 border-b border-gray-300 flex flex-wrap items-center gap-4 text-xs">
+            <div class="flex items-center gap-1">
+                <label class="font-semibold text-gray-700">Costellazione:</label>
+                <select id="cmbCostellazione" onchange="handleFilterChange('costellazione')" class="bg-white border border-gray-400 rounded px-2 py-0.5 text-xs">
+                    <option value="Tutte">Tutte</option>
+                </select>
             </div>
 
-            <div class="grid lg:grid-cols-3 gap-8 items-center">
-                <div class="lg:col-span-2 relative bg-slate-900/80 p-4 rounded-2xl border border-slate-800 h-72 sm:h-80">
-                    <canvas id="spacetimeChart"></canvas>
+            <div class="flex items-center gap-1">
+                <label class="font-semibold text-gray-700">Tipo:</label>
+                <select id="cmbClasse" onchange="handleFilterChange('tipo')" class="bg-white border border-gray-400 rounded px-2 py-0.5 text-xs">
+                    <option value="Tutte">Tutte</option>
+                </select>
+            </div>
+
+            <div class="flex items-center gap-3 border-l border-r border-gray-300 px-3 py-0.5">
+                <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" id="RadioButton1" name="sort" checked onchange="caricaElencoOggetti()"> Numero Messier
+                </label>
+                <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" id="RadioButton2" name="sort" onchange="caricaElencoOggetti()"> Costellazione
+                </label>
+                <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" id="RadioButton3" name="sort" onchange="caricaElencoOggetti()"> Tipo
+                </label>
+                <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" id="RadioButton4" name="sort" onchange="caricaElencoOggetti()"> Magnitudine
+                </label>
+            </div>
+
+            <div class="flex items-center gap-2 ml-auto">
+                <button onclick="goToScreen('screen-menu')" class="win-button px-3 py-0.5 font-semibold">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Menu Principale
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Explorer Layout -->
+        <div class="flex-1 flex overflow-hidden bg-gray-100">
+            
+            <!-- Left Sidebar: Catalog List (oggetti table) -->
+            <div class="w-1/4 min-w-[300px] max-w-[360px] border-r border-gray-300 bg-white overflow-y-auto" id="lstOggettiCatalog">
+                <!-- Dynamically Populated List Items -->
+            </div>
+
+            <!-- Middle Panel: Detailed Object View -->
+            <div class="flex-1 flex flex-col p-4 overflow-y-auto bg-gray-100">
+                
+                <!-- Object Metadata Header -->
+                <div class="grid grid-cols-[140px_1fr] gap-x-4 gap-y-1 font-mono text-xs mb-3 bg-white p-3 border border-gray-300 rounded shadow-sm">
+                    <span class="font-bold text-gray-600">ID / Classe:</span>
+                    <span id="detail-id-class" class="font-bold text-blue-900">-</span>
+
+                    <span class="font-bold text-gray-600">Nome / Designazione:</span>
+                    <span id="detail-name">-</span>
+
+                    <span class="font-bold text-gray-600">Nome Comune:</span>
+                    <span id="detail-common">-</span>
+
+                    <span class="font-bold text-gray-600">Nome Stellarium:</span>
+                    <span id="detail-stellarium">-</span>
+
+                    <span class="font-bold text-gray-600">Tipo:</span>
+                    <span id="detail-type">-</span>
+
+                    <span class="font-bold text-gray-600">Costellazione:</span>
+                    <span id="detail-constellation">-</span>
+
+                    <span class="font-bold text-gray-600">AR / DEC:</span>
+                    <span id="detail-coords">-</span>
+
+                    <span class="font-bold text-gray-600">Magnitudine:</span>
+                    <span id="detail-mag">-</span>
+
+                    <span class="font-bold text-gray-600">Distanza:</span>
+                    <span id="detail-dist">-</span>
+
+                    <span class="font-bold text-gray-600">Dim. Angolare:</span>
+                    <span id="detail-size">-</span>
                 </div>
 
-                <div class="flex flex-col gap-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-300 mb-2">
-                            Velocità nello Spazio ($V_x$): <span id="speedVal" class="text-cyan-400 font-bold">0%</span>
-                        </label>
-                        <input id="speedSlider" type="range" min="0" max="95" value="0" class="w-full accent-cyan-400 cursor-pointer">
+                <!-- Object Detailed Description & Didactic Note -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                    <div class="bg-white p-3 border border-gray-300 rounded shadow-sm leading-relaxed font-sans text-xs text-gray-800 text-justify max-h-[140px] overflow-y-auto">
+                        <div class="font-bold text-blue-900 border-b pb-1 mb-1">Descrizione Ufficiale:</div>
+                        <div id="detail-desc">-</div>
                     </div>
-
-                    <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800/80 text-xs text-slate-300 space-y-2">
-                        <div class="flex justify-between">
-                            <span>Velocità nel Tempo ($V_t$):</span>
-                            <span id="timeSpeedVal" class="font-bold text-emerald-400">100%</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Scorrimento Orologio:</span>
-                            <span id="clockStatus" class="font-bold text-cyan-300">Velocità Massima</span>
-                        </div>
+                    <div class="bg-blue-50/50 p-3 border border-blue-200 rounded shadow-sm leading-relaxed font-sans text-xs text-blue-950 text-justify max-h-[140px] overflow-y-auto">
+                        <div class="font-bold text-blue-900 border-b border-blue-200 pb-1 mb-1">Approfondimento Didattico:</div>
+                        <div id="detail-didattica">-</div>
                     </div>
+                </div>
 
-                    <p id="dynamicExplain" class="text-xs text-slate-400 italic">
-                        "Quando sei fermo su una sedia, viaggi alla massima velocità possibile verso il futuro."
-                    </p>
+                <!-- Gallery Preview Thumbnails -->
+                <div class="mt-auto">
+                    <div class="text-xs font-semibold text-gray-700 mb-2">Galleria Immagini & Mappa di Localizzazione:</div>
+                    <div class="grid grid-cols-4 gap-2" id="gallery-container">
+                        <!-- Thumbnails loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar: stelle Table Reference Catalog -->
+            <div class="w-1/4 min-w-[280px] max-w-[320px] border-l border-gray-300 bg-white p-3 overflow-y-auto font-mono text-[11px] text-gray-700">
+                <div class="font-bold border-b border-gray-300 pb-1 mb-2 text-gray-950 flex items-center justify-between">
+                    <span>Catalogo Stelle (HR):</span>
+                    <span class="text-[10px] bg-gray-200 px-1.5 py-0.5 rounded text-gray-600" id="stelle-count">0</span>
+                </div>
+                <div class="space-y-2" id="stelle-catalog">
+                    <!-- Loaded dynamically from stelle table schema -->
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="calculator" class="max-w-5xl mx-auto px-6 py-8 mb-16">
-        <div class="glass-card p-8 rounded-3xl border border-indigo-500/30 bg-gradient-to-br from-slate-900 via-slate-900/90 to-indigo-950/40">
-            <div class="mb-6 text-center">
-                <h2 class="text-2xl font-bold text-white mb-2">Simulatore di Dilatazione Temporale</h2>
-                <p class="text-slate-400 text-sm">Calcola il ritardo temporale rispetto alla Terra dopo un viaggio ad altissima velocità</p>
+    <!-- CUSTOM MESSAGE BOX (REPLACING ALERT) -->
+    <div id="custom-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white border-2 border-gray-400 rounded-lg shadow-2xl max-w-md w-full overflow-hidden">
+            <div class="win-titlebar px-3 py-1.5 flex justify-between items-center text-xs font-semibold">
+                <span>Messaggio Atlante Astronomico</span>
+                <button onclick="closeModal()" class="px-2 py-0.5 hover:bg-red-600 text-white">✕</button>
             </div>
-
-            <div class="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto mb-6">
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Velocità (% della luce)</label>
-                    <input id="calcSpeed" type="number" min="0" max="99.9" value="80" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-cyan-400">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Tempo trascorso sulla Terra (Anni)</label>
-                    <input id="calcYears" type="number" min="1" value="10" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-cyan-400">
-                </div>
+            <div class="p-4 text-xs font-sans text-gray-800" id="modal-message">
+                Testo del messaggio
             </div>
-
-            <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 text-center max-w-2xl mx-auto">
-                <p class="text-xs text-slate-400 mb-1">Tempo percepito dal viaggiatore nello spaziotempo:</p>
-                <div id="calcResult" class="text-3xl font-extrabold text-cyan-400">6.00 Anni</div>
-                <p id="calcDifference" class="text-xs text-emerald-400 mt-2 font-medium">L'orologio del viaggiatore ha risparmiato 4.00 anni!</p>
+            <div class="bg-gray-100 p-3 border-t border-gray-300 flex justify-end">
+                <button onclick="closeModal()" class="win-button px-4 py-1 text-xs font-bold uppercase text-gray-800">OK</button>
             </div>
         </div>
-    </section>
-
-    <footer class="glass-card border-t border-slate-800 py-8 px-6 text-center text-xs text-slate-500">
-        <p>Progetto divulgativo creato sulla 4ª dimensione e lo Spaziotempo • Ispirato a Einstein, Ippazia e Simplicio</p>
-    </footer>
+    </div>
 
     <script>
-        let chartInstance = null;
-
-        function initChart() {
-            const ctx = document.getElementById('spacetimeChart').getContext('2d');
-            chartInstance = new Chart(ctx, {
-                type: 'scatter',
-                data: {
-                    datasets: [
-                        {
-                            label: 'Vettore Spaziotempo',
-                            data: [{x: 0, y: 0}, {x: 0, y: 100}],
-                            borderColor: '#38bdf8',
-                            backgroundColor: '#38bdf8',
-                            showLine: true,
-                            borderWidth: 4,
-                            pointRadius: [0, 6]
-                        },
-                        {
-                            label: 'Limite Spaziotemporale',
-                            data: Array.from({length: 100}, (_, i) => ({
-                                x: i,
-                                y: Math.sqrt(Math.max(0, 10000 - i * i))
-                            })),
-                            borderColor: 'rgba(255, 255, 255, 0.15)',
-                            borderDash: [5, 5],
-                            showLine: true,
-                            pointRadius: 0
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: {
-                            min: 0,
-                            max: 100,
-                            title: { display: true, text: 'Movimento nello Spazio (Vx)', color: '#94a3b8' },
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                            ticks: { color: '#64748b' }
-                        },
-                        y: {
-                            min: 0,
-                            max: 105,
-                            title: { display: true, text: 'Movimento nel Tempo (Vt)', color: '#94a3b8' },
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                            ticks: { color: '#64748b' }
-                        }
-                    }
-                }
-            });
+        function showMessage(text) {
+            document.getElementById('modal-message').innerText = text;
+            document.getElementById('custom-modal').classList.remove('hidden');
         }
 
-        function updateChart(vx) {
-            const vt = Math.sqrt(Math.max(0, 10000 - vx * vx));
-            chartInstance.data.datasets[0].data = [{x: 0, y: 0}, {x: vx, y: vt}];
-            chartInstance.update('none');
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
 
-            document.getElementById('speedVal').innerText = vx + '%';
-            document.getElementById('timeSpeedVal').innerText = Math.round(vt) + '%';
+        // Comprehensive and complete Messier Catalog from M1 to M110  
+        const oggettiCatalog = [
+            { id: 1, classe: "Messier", numero: 1, nome: "M 1", nome_comune: "Nebulosa Granchio", nome_stellarium: "M 1", tipo: "Resto di Supernova", cod_costellazione: "Tau", costellazione: "Toro", ascensione_retta: 5.58, declinazione: 22.01, magnitudine: 8.00, distanza: "6.500 anni luce", dimensione_angolare: "6' x 4'", descrizione: "Resto della supernova storica del 1054 osservata dai cinesi.", descrizione_didattica: "Oggetto fondamentale per studiare l'evoluzione dei resti stellari. Nel 1054, gli astronomi cinesi notarono una 'stella ospite' visibile nel cielo diurno...", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 2, classe: "Messier", numero: 2, nome: "M 2", nome_comune: "", nome_stellarium: "M 2", tipo: "Ammasso Globulare", cod_costellazione: "Aqr", costellazione: "Aquarius", ascensione_retta: 21.56, declinazione: -0.82, magnitudine: 6.50, distanza: "37.000 anni luce", dimensione_angolare: "16'", descrizione: "Ammasso globulare molto denso e ricco di stelle.", descrizione_didattica: "Il primo ammasso globulare ad essere aggiunto al catalogo Messier.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 3, classe: "Messier", numero: 3, nome: "M 3", nome_comune: "", nome_stellarium: "M 3", tipo: "Ammasso Globulare", cod_costellazione: "Cvn", costellazione: "Canes Venatici", ascensione_retta: 13.70, declinazione: 28.38, magnitudine: 6.40, distanza: "33.900 anni luce", dimensione_angolare: "18'", descrizione: "Uno dei più grandi e luminosi ammassi globulari conosciuti.", descrizione_didattica: "Contiene oltre 500.000 stelle. Scoperto da Charles Messier.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 4, classe: "Messier", numero: 4, nome: "M 4", nome_comune: "Winnecke 4", nome_stellarium: "M 4", tipo: "Ammasso Globulare", cod_costellazione: "Sco", costellazione: "Scorpius", ascensione_retta: 16.40, declinazione: -26.53, magnitudine: 5.90, distanza: "7.200 anni luce", dimensione_angolare: "26'", descrizione: "Ammasso globulare situato vicino alla stella Antares.", descrizione_didattica: "Uno degli ammassi globulari più vicini alla Terra.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 5, classe: "Messier", numero: 5, nome: "M 5", nome_comune: "", nome_stellarium: "M 5", tipo: "Ammasso Globulare", cod_costellazione: "Ser", costellazione: "Serpens", ascensione_retta: 15.31, declinazione: 2.08, magnitudine: 5.80, distanza: "24.500 anni luce", dimensione_angolare: "23'", descrizione: "Ammasso globulare brillante e antico.", descrizione_didattica: "Facilmente risolvibile in singole stelle con telescopi amatoriali.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 6, classe: "Messier", numero: 6, nome: "M 6", nome_comune: "Ammasso Farfalla", nome_stellarium: "M 6", tipo: "Ammasso Aperto", cod_costellazione: "Sco", costellazione: "Scorpius", ascensione_retta: 17.67, declinazione: -32.22, magnitudine: 4.20, distanza: "1.600 anni luce", dimensione_angolare: "25'", descrizione: "Ammasso aperto la cui forma ricorda una farfalla.", descrizione_didattica: "Ricco di giovani stelle calde e blu nello Scorpione.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 7, classe: "Messier", numero: 7, nome: "M 7", nome_comune: "Ammasso di Tolomeo", nome_stellarium: "M 7", tipo: "Ammasso Aperto", cod_costellazione: "Sco", costellazione: "Scorpius", ascensione_retta: 17.90, declinazione: -34.80, magnitudine: 3.30, distanza: "980 anni luce", dimensione_angolare: "80'", descrizione: "Prominente ammasso aperto noto fin dall'antichità.", descrizione_didattica: "Già catalogato da Claudio Tolomeo nel 130 d.C.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 8, classe: "Messier", numero: 8, nome: "M 8", nome_comune: "Nebulosa Laguna", nome_stellarium: "M 8", tipo: "Nebulosa Diffusa", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.06, declinazione: -24.38, magnitudine: 6.00, distanza: "4.100 anni luce", dimensione_angolare: "90' x 40'", descrizione: "Vasta nube interstellare con regioni di formazione stellare.", descrizione_didattica: "Una delle nebulose più spettacolari della Via Lattea.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 9, classe: "Messier", numero: 9, nome: "M 9", nome_comune: "", nome_stellarium: "M 9", tipo: "Ammasso Globulare", cod_costellazione: "Oph", costellazione: "Ophiuchus", ascensione_retta: 17.32, declinazione: -18.51, magnitudine: 7.90, distanza: "25.800 anni luce", dimensione_angolare: "12'", descrizione: "Ammasso globulare vicino al centro galattico.", descrizione_didattica: "Scoperto da Charles Messier nel 1764.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 10, classe: "Messier", numero: 10, nome: "M 10", nome_comune: "", nome_stellarium: "M 10", tipo: "Ammasso Globulare", cod_costellazione: "Oph", costellazione: "Ophiuchus", ascensione_retta: 17.27, declinazione: -4.10, magnitudine: 6.40, distanza: "14.300 anni luce", dimensione_angolare: "20'", descrizione: "Ammasso globulare ricco e brillante.", descrizione_didattica: "Contiene un numero relativamente basso di stelle variabili.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 11, classe: "Messier", numero: 11, nome: "M 11", nome_comune: "Ammasso Anitra Selvatica", nome_stellarium: "M 11", tipo: "Ammasso Aperto", cod_costellazione: "Sct", costellazione: "Scutum", ascensione_retta: 18.85, declinazione: -6.27, magnitudine: 6.30, distanza: "6.000 anni luce", dimensione_angolare: "14'", descrizione: "Uno dei più ricchi e compatti ammassi aperti.", descrizione_didattica: "Le sue stelle formano un triangolo che ricorda uno stormo di anatre in volo.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 12, classe: "Messier", numero: 12, nome: "M 12", nome_comune: "", nome_stellarium: "M 12", tipo: "Ammasso Globulare", cod_costellazione: "Oph", costellazione: "Ophiuchus", ascensione_retta: 17.79, declinazione: -1.95, magnitudine: 6.70, distanza: "15.700 anni luce", dimensione_angolare: "16'", descrizione: "Ammasso globulare piuttosto lasso.", descrizione_didattica: "Simile per dimensioni al vicino M10.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 13, classe: "Messier", numero: 13, nome: "M 13", nome_comune: "Grande Ammasso di Ercole", nome_stellarium: "M 13", tipo: "Ammasso Globulare", cod_costellazione: "Her", costellazione: "Hercules", ascensione_retta: 16.69, declinazione: 36.46, magnitudine: 5.80, distanza: "22.200 anni luce", dimensione_angolare: "20'", descrizione: "Il più magnifico ammasso globulare del cielo boreale.", descrizione_didattica: "Contiene centinaia di migliaia di stelle densamente raggruppate.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 14, classe: "Messier", numero: 14, nome: "M 14", nome_comune: "", nome_stellarium: "M 14", tipo: "Ammasso Globulare", cod_costellazione: "Oph", costellazione: "Ophiuchus", ascensione_retta: 17.63, declinazione: -3.25, magnitudine: 7.60, distanza: "30.300 anni luce", dimensione_angolare: "11'", descrizione: "Ammasso globulare ricco di stelle deboli.", descrizione_didattica: "Nel 1938 vi fu scoperta una nova fotografica.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 15, classe: "Messier", numero: 15, nome: "M 15", nome_comune: "", nome_stellarium: "M 15", tipo: "Ammasso Globulare", cod_costellazione: "Peg", costellazione: "Pegasus", ascensione_retta: 21.50, declinazione: 12.16, magnitudine: 6.20, distanza: "33.600 anni luce", dimensione_angolare: "18'", descrizione: "Ammasso globulare molto denso con nucleo collassato.", descrizione_didattica: "Ospita una nebulosa planetaria interna (Pease 1).", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 16, classe: "Messier", numero: 16, nome: "M 16", nome_comune: "Nebulosa Aquila", nome_stellarium: "M 16", tipo: "Nebulosa Diffusa", cod_costellazione: "Ser", costellazione: "Serpens", ascensione_retta: 18.31, declinazione: -13.79, magnitudine: 6.00, distanza: "7.000 anni luce", dimensione_angolare: "35' x 28'", descrizione: "Ammasso aperto associato a nebulosa e ai famosi 'Pilastri della Creazione'.", descrizione_didattica: "Celeberrima per le immagini catturate dal telescopio Hubble.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 17, classe: "Messier", numero: 17, nome: "M 17", nome_comune: "Nebulosa Omega", nome_stellarium: "M 17", tipo: "Nebulosa Diffusa", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.35, declinazione: -16.18, magnitudine: 6.00, distanza: "5.500 anni luce", dimensione_angolare: "46' x 37'", descrizione: "Regione H II con intensa formazione stellare.", descrizione_didattica: "Chiamata anche Nebulosa Ferro di Cavallo.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 18, classe: "Messier", numero: 18, nome: "M 18", nome_comune: "", nome_stellarium: "M 18", tipo: "Ammasso Aperto", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.34, declinazione: -17.03, magnitudine: 7.50, distanza: "4.900 anni luce", dimensione_angolare: "9'", descrizione: "Piccolo ammasso aperto tra M17 e M24.", descrizione_didattica: "Scoperto da Charles Messier nel 1764.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 19, classe: "Messier", numero: 19, nome: "M 19", nome_comune: "", nome_stellarium: "M 19", tipo: "Ammasso Globulare", cod_costellazione: "Oph", costellazione: "Ophiuchus", ascensione_retta: 17.03, declinazione: -26.27, magnitudine: 6.80, distanza: "28.000 anni luce", dimensione_angolare: "17'", descrizione: "Ammasso globulare notevolmente schiacciato.", descrizione_didattica: "Molto vicino al rigonfiamento centrale galattico.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 20, classe: "Messier", numero: 20, nome: "M 20", nome_comune: "Nebulosa Trifida", nome_stellarium: "M 20", tipo: "Nebulosa Diffusa", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.03, declinazione: -23.03, magnitudine: 9.00, distanza: "5.200 anni luce", dimensione_angolare: "28' x 28'", descrizione: "Combinazione di nebulosa a emissione, a riflessione e oscura.", descrizione_didattica: "Divisa in tre lobi da bande di polvere scura.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 21, classe: "Messier", numero: 21, nome: "M 21", nome_comune: "", nome_stellarium: "M 21", tipo: "Ammasso Aperto", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.07, declinazione: -22.50, magnitudine: 6.50, distanza: "4.250 anni luce", dimensione_angolare: "13'", descrizione: "Ammasso aperto giovane vicino a M20.", descrizione_didattica: "Costituito da circa 60 stelle.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 22, classe: "Messier", numero: 22, nome: "M 22", nome_comune: "", nome_stellarium: "M 22", tipo: "Ammasso Globulare", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.61, declinazione: -23.90, magnitudine: 5.10, distanza: "10.600 anni luce", dimensione_angolare: "32'", descrizione: "Uno dei più vicini e brillanti ammassi globulari.", descrizione_didattica: "Visibile anche a occhio nudo in condizioni ottimali.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 23, classe: "Messier", numero: 23, nome: "M 23", nome_comune: "", nome_stellarium: "M 23", tipo: "Ammasso Aperto", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 17.95, declinazione: -19.01, magnitudine: 5.50, distanza: "2.150 anni luce", dimensione_angolare: "27'", descrizione: "Grande ammasso aperto ricco di stelle.", descrizione_didattica: "Contiene circa 150 stelle sparse.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 24, classe: "Messier", numero: 24, nome: "M 24", nome_comune: "Piccolo Nube Stellare del Sagittario", nome_stellarium: "M 24", tipo: "Nube Stellare", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.28, declinazione: -18.48, magnitudine: 4.60, distanza: "10.000 anni luce", dimensione_angolare: "90'", descrizione: "Vasta nube stellare ricca nella Via Lattea.", descrizione_didattica: "Non è un ammasso vero e proprio, ma una finestra tra le polveri galattiche.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 25, classe: "Messier", numero: 25, nome: "M 25", nome_comune: "", nome_stellarium: "M 25", tipo: "Ammasso Aperto", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.53, declinazione: -19.15, magnitudine: 4.60, distanza: "2.000 anni luce", dimensione_angolare: "40'", descrizione: "Largo ammasso aperto brillante.", descrizione_didattica: "Contiene una stella variabile di tipo Cefeide.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 26, classe: "Messier", numero: 26, nome: "M 26", nome_comune: "", nome_stellarium: "M 26", tipo: "Ammasso Aperto", cod_costellazione: "Sct", costellazione: "Scutum", ascensione_retta: 18.75, declinazione: -9.38, magnitudine: 8.00, distanza: "5.000 anni luce", dimensione_angolare: "15'", descrizione: "Ammasso aperto nello Scudo.", descrizione_didattica: "Mostra una minore concentrazione di stelle al centro.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 27, classe: "Messier", numero: 27, nome: "M 27", nome_comune: "Nebulosa Manubrio (Dumbbell)", nome_stellarium: "M 27", tipo: "Nebulosa Planetaria", cod_costellazione: "Vul", costellazione: "Vulpecula", ascensione_retta: 19.96, declinazione: 22.72, magnitudine: 7.50, distanza: "1.360 anni luce", dimensione_angolare: "8' x 6'", descrizione: "La prima nebulosa planetaria mai scoperta.", descrizione_didattica: "Scoperta da Charles Messier nel 1764, ha una forma a clessidra.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 28, classe: "Messier", numero: 28, nome: "M 28", nome_comune: "", nome_stellarium: "M 28", tipo: "Ammasso Globulare", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.41, declinazione: -24.87, magnitudine: 6.80, distanza: "18.000 anni luce", dimensione_angolare: "11'", descrizione: "Ammasso globulare compatto.", descrizione_didattica: "Ospita una pulsar millisecondo.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 29, classe: "Messier", numero: 29, nome: "M 29", nome_comune: "", nome_stellarium: "M 29", tipo: "Ammasso Aperto", cod_costellazione: "Cyg", costellazione: "Cygnus", ascensione_retta: 20.40, declinazione: 38.53, magnitudine: 7.10, distanza: "4.000 anni luce", dimensione_angolare: "7'", descrizione: "Piccolo ammasso aperto nel Cigno.", descrizione_didattica: "Formato da giovani supergiganti calde.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 30, classe: "Messier", numero: 30, nome: "M 30", nome_comune: "", nome_stellarium: "M 30", tipo: "Ammasso Globulare", cod_costellazione: "Cap", costellazione: "Capricornus", ascensione_retta: 21.65, declinazione: -23.18, magnitudine: 7.20, distanza: "26.000 anni luce", dimensione_angolare: "12'", descrizione: "Ammasso globulare con nucleo denso.", descrizione_didattica: "Mostra fenomeni di collasso del nucleo.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 31, classe: "Messier", numero: 31, nome: "M 31", nome_comune: "Galassia di Andromeda", nome_stellarium: "M 31", tipo: "Galassia a Spirale", cod_costellazione: "And", costellazione: "Andromeda", ascensione_retta: 0.71, declinazione: 41.27, magnitudine: 3.40, distanza: "2.5 milioni anni luce", dimensione_angolare: "180' x 63'", descrizione: "La grande galassia a spirale vicina.", descrizione_didattica: "L'oggetto più lontano visibile a occhio nudo in cieli bui.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 32, classe: "Messier", numero: 32, nome: "M 32", nome_comune: "", nome_stellarium: "M 32", tipo: "Galassia Elissoidale", cod_costellazione: "And", costellazione: "Andromeda", ascensione_retta: 0.71, declinazione: 40.87, magnitudine: 8.10, distanza: "2.5 milioni anni luce", dimensione_angolare: "8' x 6'", descrizione: "Galassia ellittica nana satellite di M31.", descrizione_didattica: "Mostra segni di interazione mareale con la vicina Andromeda.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 33, classe: "Messier", numero: 33, nome: "M 33", nome_comune: "Galassia del Triangolo", nome_stellarium: "M 33", tipo: "Galassia a Spirale", cod_costellazione: "Tri", costellazione: "Triangulum", ascensione_retta: 1.56, declinazione: 30.66, magnitudine: 5.70, distanza: "2.7 milioni anni luce", dimensione_angolare: "73' x 45'", descrizione: "Terza galassia per grandezza nel Gruppo Locale.", descrizione_didattica: "Spirale 'faccia in vista' ricca di regioni H II.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 34, classe: "Messier", numero: 34, nome: "M 34", nome_comune: "", nome_stellarium: "M 34", tipo: "Ammasso Aperto", cod_costellazione: "Per", costellazione: "Perseus", ascensione_retta: 2.72, declinazione: 42.78, magnitudine: 5.50, distanza: "1.400 anni luce", dimensione_angolare: "35'", descrizione: "Luminoso ammasso aperto in Perseo.", descrizione_didattica: "Contiene circa 100 stelle.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 35, classe: "Messier", numero: 35, nome: "M 35", nome_comune: "", nome_stellarium: "M 35", tipo: "Ammasso Aperto", cod_costellazione: "Gem", costellazione: "Gemini", ascensione_retta: 6.15, declinazione: 24.37, magnitudine: 5.10, distanza: "2.800 anni luce", dimensione_angolare: "28'", descrizione: "Magnifico ammasso aperto nei Gemelli.", descrizione_didattica: "Ricco di centinaia di stelle brillanti.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 36, classe: "Messier", numero: 36, nome: "M 36", nome_comune: "", nome_stellarium: "M 36", tipo: "Ammasso Aperto", cod_costellazione: "Aur", costellazione: "Auriga", ascensione_retta: 5.61, declinazione: 34.14, magnitudine: 6.00, distanza: "4.100 anni luce", dimensione_angolare: "12'", descrizione: "Ammasso aperto compatto nell'Auriga.", descrizione_didattica: "Simile all'ammasso delle Pleiadi in miniatura.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 37, classe: "Messier", numero: 37, nome: "M 37", nome_comune: "", nome_stellarium: "M 37", tipo: "Ammasso Aperto", cod_costellazione: "Aur", costellazione: "Auriga", ascensione_retta: 5.86, declinazione: 32.55, magnitudine: 5.60, distanza: "4.500 anni luce", dimensione_angolare: "24'", descrizione: "Il più ricco ammasso aperto nell'Auriga.", descrizione_didattica: "Contiene centinaia di stelle disposte in bellissimi pattern.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 38, classe: "Messier", numero: 38, nome: "M 38", nome_comune: "", nome_stellarium: "M 38", tipo: "Ammasso Aperto", cod_costellazione: "Aur", costellazione: "Auriga", ascensione_retta: 5.48, declinazione: 35.85, magnitudine: 6.40, distanza: "4.200 anni luce", dimensione_angolare: "21'", descrizione: "Ammasso aperto a forma di croce o pi greco.", descrizione_didattica: "Scoperto da Giovanni Battista Hodierna prima del 1654.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 39, classe: "Messier", numero: 39, nome: "M 39", nome_comune: "", nome_stellarium: "M 39", tipo: "Ammasso Aperto", cod_costellazione: "Cyg", costellazione: "Cygnus", ascensione_retta: 21.54, declinazione: 48.43, magnitudine: 5.50, distanza: "824 anni luce", dimensione_angolare: "32'", descrizione: "Largo ammasso aperto nel Cigno.", descrizione_didattica: "Costituito da circa 30 stelle luminose.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 40, classe: "Messier", numero: 40, nome: "M 40", nome_comune: "Winnecke 4", nome_stellarium: "M 40", tipo: "Stella Doppia", cod_costellazione: "UMa", costellazione: "Ursa Major", ascensione_retta: 12.37, declinazione: 58.08, magnitudine: 8.40, distanza: "510 anni luce", dimensione_angolare: "1'", descrizione: "Stella doppia ottica catalogata per errore da Messier.", descrizione_didattica: "Cercava una nebulosa e catalogò due stelle vicine.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 41, classe: "Messier", numero: 41, nome: "M 41", nome_comune: "", nome_stellarium: "M 41", tipo: "Ammasso Aperto", cod_costellazione: "CMa", costellazione: "Canis Major", ascensione_retta: 6.78, declinazione: -20.74, magnitudine: 4.50, distanza: "2.300 anni luce", dimensione_angolare: "38'", descrizione: "Luminoso ammasso aperto sotto Sirio.", descrizione_didattica: "Contiene diverse giganti arancioni.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 42, classe: "Messier", numero: 42, nome: "M 42", nome_comune: "Nebulosa di Orione", nome_stellarium: "M 42", tipo: "Nebulosa Diffusa", cod_costellazione: "Ori", costellazione: "Orion", ascensione_retta: 5.59, declinazione: -5.39, magnitudine: 4.00, distanza: "1.344 anni luce", dimensione_angolare: "65' x 60'", descrizione: "La più famosa nebulosa diffusa del cielo.", descrizione_didattica: "Culla di formazione stellare attiva contenente il Trapezio.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 43, classe: "Messier", numero: 43, nome: "M 43", nome_comune: "Nebulosa di De Mairan", nome_stellarium: "M 43", tipo: "Nebulosa Diffusa", cod_costellazione: "Ori", costellazione: "Orion", ascensione_retta: 5.59, declinazione: -5.26, magnitudine: 9.00, distanza: "1.350 anni luce", dimensione_angolare: "20' x 15'", descrizione: "Parte separata della grande Nebulosa di Orione.", descrizione_didattica: "Separata da M42 da una banda oscura.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 44, classe: "Messier", numero: 44, nome: "M 44", nome_comune: "Presepe (Praesepe / Alveare)", nome_stellarium: "M 44", tipo: "Ammasso Aperto", cod_costellazione: "Cnc", costellazione: "Cancer", ascensione_retta: 8.67, declinazione: 19.68, magnitudine: 3.70, distanza: "610 anni luce", dimensione_angolare: "95'", descrizione: "Famoso ammasso aperto visibile a occhio nudo.", desc_didattica: "Menzionato da Arato nel 260 a.C. come 'Nebulina'.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 45, classe: "Messier", numero: 45, nome: "M 45", nome_comune: "Pleiadi", nome_stellarium: "M 45", tipo: "Ammasso Aperto", cod_costellazione: "Tau", costellazione: "Taurus", ascensione_retta: 3.79, declinazione: 24.11, magnitudine: 1.60, distanza: "444 anni luce", dimensione_angolare: "110'", descrizione: "Il più famoso ammasso aperto del cielo.", descrizione_didattica: "Avvolto da nebulosità a riflessione azzurra.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 46, classe: "Messier", numero: 46, nome: "M 46", nome_comune: "", nome_stellarium: "M 46", tipo: "Ammasso Aperto", cod_costellazione: "Pup", costellazione: "Puppis", ascensione_retta: 7.71, declinazione: -14.83, magnitudine: 6.10, distanza: "5.400 anni luce", dimensione_angolare: "27'", descrizione: "Ricco ammasso aperto con planetaria in primo piano (NGC 2438).", descrizione_didattica: "Splendido accostamento prospettico.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 47, classe: "Messier", numero: 47, nome: "M 47", nome_comune: "", nome_stellarium: "M 47", tipo: "Ammasso Aperto", cod_costellazione: "Pup", costellazione: "Puppis", ascensione_retta: 7.62, declinazione: -14.50, magnitudine: 4.40, distanza: "1.600 anni luce", dimensione_angolare: "30'", descrizione: "Ammasso aperto brillante nella Poppa.", descrizione_didattica: "Visibile facilmente con binocoli.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 48, classe: "Messier", numero: 48, nome: "M 48", nome_comune: "", nome_stellarium: "M 48", tipo: "Ammasso Aperto", cod_costellazione: "Hya", costellazione: "Hydra", ascensione_retta: 8.23, declinazione: -5.80, magnitudine: 5.50, distanza: "1.500 anni luce", dimensione_angolare: "54'", descrizione: "Grande ammasso aperto nell'Idra.", descrizione_didattica: "Contiene circa 50 stelle.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 49, classe: "Messier", numero: 49, nome: "M 49", nome_comune: "", nome_stellarium: "M 49", tipo: "Galassia Elissoidale", cod_costellazione: "Vir", costellazione: "Virgo", ascensione_retta: 12.50, declinazione: 8.00, magnitudine: 8.40, distanza: "56 milioni anni luce", dimensione_angolare: "10' x 8'", descrizione: "Galassia ellittica gigante nell'Ammasso della Vergine.", descrizione_didattica: "La prima galassia dell'ammasso ad essere scoperta (da Messier nel 1771).", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 50, classe: "Messier", numero: 50, nome: "M 50", nome_comune: "", nome_stellarium: "M 50", tipo: "Ammasso Aperto", cod_costellazione: "Mon", costellazione: "Monoceros", ascensione_retta: 7.05, declinazione: -8.33, magnitudine: 5.90, distanza: "3.200 anni luce", dimensione_angolare: "16'", descrizione: "Ammasso aperto nell'Unicorno.", descrizione_didattica: "Caratterizzato da una brillante gigante rossa.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 51, classe: "Messier", numero: 51, nome: "M 51", nome_comune: "Galassia Vortice (Whirlpool)", nome_stellarium: "M 51", tipo: "Galassia a Spirale", cod_costellazione: "Cvn", costellazione: "Canes Venatici", ascensione_retta: 13.50, declinazione: 47.20, magnitudine: 8.40, distanza: "23 milioni anni luce", dimensione_angolare: "11' x 7'", descrizione: "Famosa galassia a spirale in interazione con NGC 5195.", descrizione_didattica: "Icona classica dell'astronomia extragalattica.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 52, classe: "Messier", numero: 52, nome: "M 52", nome_comune: "", nome_stellarium: "M 52", tipo: "Ammasso Aperto", cod_costellazione: "Cas", costellazione: "Cassiopeia", ascensione_retta: 23.42, declinazione: 61.58, magnitudine: 7.30, distanza: "5.000 anni luce", dimensione_angolare: "13'", descrizione: "Ammasso aperto ricco in Cassiopea.", descrizione_didattica: "Scoperto da Charles Messier nel 1774.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 53, classe: "Messier", numero: 53, nome: "M 53", nome_comune: "", nome_stellarium: "M 53", tipo: "Ammasso Globulare", cod_costellazione: "Com", costellazione: "Coma Berenices", ascensione_retta: 13.21, declinazione: 18.17, magnitudine: 7.60, distanza: "58.000 anni luce", dimensione_angolare: "13'", descrizione: "Ammasso globulare periferico.", descrizione_didattica: "Uno dei globulari più remoti dal centro galattico.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 54, classe: "Messier", numero: 54, nome: "M 54", nome_comune: "", nome_stellarium: "M 54", tipo: "Ammasso Globulare", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.92, declinazione: -30.48, magnitudine: 7.60, distanza: "87.400 anni luce", dimensione_angolare: "9'", descrizione: "Ammasso globulare appartenente alla galassia nana del Sagittario.", descrizione_didattica: "Inizialmente ritenuto parte della Via Lattea.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 55, classe: "Messier", numero: 55, nome: "M 55", nome_comune: "", nome_stellarium: "M 55", tipo: "Ammasso Globulare", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 19.67, declinazione: -30.96, magnitudine: 7.00, distanza: "17.600 anni luce", dimensione_angolare: "19'", descrizione: "Ammasso globulare lasso nel Sagittario.", descrizione_didattica: "Molto esteso ma poco concentrato.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 56, classe: "Messier", numero: 56, nome: "M 56", nome_comune: "", nome_stellarium: "M 56", tipo: "Ammasso Globulare", cod_costellazione: "Lyr", costellazione: "Lyra", ascensione_retta: 19.28, declinazione: 30.18, magnitudine: 8.30, distanza: "32.900 anni luce", dimensione_angolare: "7'", descrizione: "Ammasso globulare nella Lira.", descrizione_didattica: "Scoperto da Charles Messier nel 1779.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 57, classe: "Messier", numero: 57, nome: "M 57", nome_comune: "Nebulosa Anello (Ring Nebula)", nome_stellarium: "M 57", tipo: "Nebulosa Planetaria", cod_costellazione: "Lyr", costellazione: "Lyra", ascensione_retta: 18.89, declinazione: 33.03, magnitudine: 8.80, distanza: "2.300 anni luce", dimensione_angolare: "3' x 2'", descrizione: "Famosissima nebulosa planetaria a forma di anello.", descrizione_didattica: "Il guscio di gas espulso da una stella morente.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 58, classe: "Messier", numero: 58, nome: "M 58", nome_comune: "", nome_stellarium: "M 58", tipo: "Galassia a Spirale", cod_costellazione: "Vir", costellazione: "Virgo", ascensione_retta: 12.65, declinazione: 11.82, magnitudine: 9.70, distanza: "68 milioni anni luce", dimensione_angolare: "6' x 5'", descrizione: "Galassia a spirale barrata nell'Ammasso della Vergine.", descrizione_didattica: "Ospita supernove storiche.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 59, classe: "Messier", numero: 59, nome: "M 59", nome_comune: "", nome_stellarium: "M 59", tipo: "Galassia Elissoidale", cod_costellazione: "Vir", costellazione: "Virgo", ascensione_retta: 12.70, declinazione: 11.65, magnitudine: 9.60, distanza: "60 milioni anni luce", dimensione_angolare: "5' x 3'", descrizione: "Galassia ellittica nell'Ammasso della Vergine.", descrizione_didattica: "Contiene un piccolo disco interno di stelle.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 60, classe: "Messier", numero: 60, nome: "M 60", nome_comune: "", nome_stellarium: "M 60", tipo: "Galassia Elissoidale", cod_costellazione: "Vir", costellazione: "Virgo", ascensione_retta: 12.73, declinazione: 11.55, magnitudine: 8.80, distanza: "55 milioni anni luce", dimensione_angolare: "7' x 6'", descrizione: "Galassia ellittica gigante in coppia con NGC 4647.", descrizione_didattica: "Interessante caso di interazione galattica.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 61, classe: "Messier", numero: 61, nome: "M 61", nome_comune: "", nome_stellarium: "M 61", tipo: "Galassia a Spirale", cod_costellazione: "Vir", costellazione: "Virgo", ascensione_retta: 12.36, declinazione: 4.47, magnitudine: 9.70, distanza: "52.5 milioni anni luce", dimensione_angolare: "6' x 6'", descrizione: "Galassia a spirale con notevole tasso di supernove.", descrizione_didattica: "Ricca di bracci ben formati.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 62, classe: "Messier", numero: 62, nome: "M 62", nome_comune: "", nome_stellarium: "M 62", tipo: "Ammasso Globulare", cod_costellazione: "Oph", costellazione: "Ophiuchus", ascensione_retta: 17.02, declinazione: -30.11, magnitudine: 6.50, distanza: "22.200 anni luce", dimensione_angolare: "14'", descrizione: "Ammasso globulare asimmetrico.", descrizione_didattica: "Vicino al centro galattico.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 63, classe: "Messier", numero: 63, nome: "M 63", nome_comune: "Galassia Girasole", nome_stellarium: "M 63", tipo: "Galassia a Spirale", cod_costellazione: "Cvn", costellazione: "Canes Venatici", ascensione_retta: 13.26, declinazione: 42.03, magnitudine: 8.60, distanza: "37 milioni anni luce", dimensione_angolare: "12' x 7'", descrizione: "Galassia a spirale con bracci multipli filamentosi.", descrizione_didattica: "Il suo aspetto ricorda i semi di un girasole.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 64, classe: "Messier", numero: 64, nome: "M 64", nome_comune: "Galassia Occhio Nero", nome_stellarium: "M 64", tipo: "Galassia a Spirale", cod_costellazione: "Com", costellazione: "Coma Berenices", ascensione_retta: 12.95, declinazione: 21.69, magnitudine: 8.50, distanza: "17 milioni anni luce", dimensione_angolare: "10' x 5'", description: "Famosa per la spettacolare banda scura di polveri davanti al nucleo.", descrizione_didattica: "Chiamata anche 'Galassia Occhio del Diavolo'.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 65, classe: "Messier", numero: 65, nome: "M 65", nome_comune: "", nome_stellarium: "M 65", tipo: "Galassia a Spirale", cod_costellazione: "Leo", costellazione: "Leo", ascensione_retta: 11.31, declinazione: 13.0, magnitudine: 9.30, distanza: "35 milioni anni luce", dimensione_angolare: "8' x 2'", descrizione: "Membro del famoso Tripletto del Leone.", descrizione_didattica: "Galassia a spirale vista di sbieco.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 66, classe: "Messier", numero: 66, nome: "M 66", nome_comune: "", nome_stellarium: "M 66", tipo: "Galassia a Spirale", cod_costellazione: "Leo", costellazione: "Leo", ascensione_retta: 11.34, declinazione: 12.99, magnitudine: 8.90, distanza: "35 milioni anni luce", dimensione_angolare: "9' x 4'", descrizione: "Galassia a spirale barrata nel Tripletto del Leone.", descrizione_didattica: "Bracci asimmetrici dovuti a interazioni passate.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 67, classe: "Messier", numero: 67, nome: "M 67", nome_comune: "", nome_stellarium: "M 67", tipo: "Ammasso Aperto", cod_costellazione: "Cnc", costellazione: "Cancer", ascensione_retta: 8.85, declinazione: 11.82, magnitudine: 6.10, distanza: "2.700 anni luce", dimensione_angolare: "30'", descrizione: "Uno degli ammassi aperti più antichi conosciuti.", descrizione_didattica: "Età stimata di oltre 4 miliardi di anni.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 68, classe: "Messier", numero: 68, nome: "M 68", nome_comune: "", nome_stellarium: "M 68", tipo: "Ammasso Globulare", cod_costellazione: "Hya", costellazione: "Hydra", ascensione_retta: 12.66, declinazione: -26.74, magnitudine: 7.80, distanza: "33.300 anni luce", dimensione_angolare: "12'", description: "Ammasso globulare nell'Idra.", descrizione_didattica: "Scoperto da Pierre Méchain nel 1780.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 69, classe: "Messier", numero: 69, nome: "M 69", nome_comune: "", nome_stellarium: "M 69", tipo: "Ammasso Globulare", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.52, declinazione: -32.22, magnitudine: 7.60, distanza: "29.700 anni luce", dimensione_angolare: "7'", descrizione: "Piccolo ammasso globulare nel Sagittario.", descrizione_didattica: "Molto vicino a M70.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 70, classe: "Messier", numero: 70, nome: "M 70", nome_comune: "", nome_stellarium: "M 70", tipo: "Ammasso Globulare", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 18.73, declinazione: -32.30, magnitudine: 7.90, distanza: "29.400 anni luce", dimensione_angolare: "8'", descrizione: "Ammasso globulare vicino al centro galattico.", descrizione_didattica: "Da qui fu scoperta la cometa Hale-Bopp nel 1995.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 71, classe: "Messier", numero: 71, nome: "M 71", nome_comune: "Ammasso Punta di Freccia", nome_stellarium: "M 71", tipo: "Ammasso Globulare", cod_costellazione: "Sge", costellazione: "Sagitta", ascensione_retta: 19.90, declinazione: 18.78, magnitudine: 8.30, distanza: "13.000 anni luce", dimensione_angolare: "7'", descrizione: "Ammasso globulare povero o ammasso aperto denso.", descrizione_didattica: "Oggetto di dibattito scientifico storico.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 72, classe: "Messier", numero: 72, nome: "M 72", nome_comune: "", nome_stellarium: "M 72", tipo: "Ammasso Globulare", cod_costellazione: "Aqr", costellazione: "Aquarius", ascensione_retta: 20.89, declinazione: -12.54, magnitudine: 9.40, distanza: "55.400 anni luce", dimensione_angolare: "6'", descrizione: "Ammasso globulare nella periferia galattica.", descrizione_didattica: "Scoperto nel 1780 da Pierre Méchain.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 73, classe: "Messier", numero: 73, nome: "M 73", nome_comune: "Asterisma dell'Acquario", nome_stellarium: "M 73", tipo: "Ammasso Aperto", cod_costellazione: "Aqr", costellazione: "Aquarius", ascensione_retta: 20.99, declinazione: -12.63, magnitudine: 9.30, distanza: "2.500 anni luce", dimensione_angolare: "3'", description: "Asterisma di 4 stelle.", descrizione_didattica: "Raggruppamento ottico senza legame gravitazionale.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 74, classe: "Messier", numero: 74, nome: "M 74", nome_comune: "Galassia Famosa a Spirale Perfetta", nome_stellarium: "M 74", tipo: "Galassia a Spirale", cod_costellazione: "Psc", costellazione: "Pisces", ascensione_retta: 1.90, declinazione: 15.78, magnitudine: 9.40, distanza: "32 milioni anni luce", dimensione_angolare: "10' x 9'", descrizione: "Splendida galassia a spirale 'grand design'.", descrizione_didattica: "Difficile da osservare visivamente per la sua bassa luminosità superficiale.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 75, classe: "Messier", numero: 75, nome: "M 75", nome_comune: "", nome_stellarium: "M 75", tipo: "Ammasso Globulare", cod_costellazione: "Sgr", costellazione: "Sagittarius", ascensione_retta: 20.10, declinazione: -21.92, magnitudine: 8.50, distanza: "67.500 anni luce", dimensione_angolare: "6'", descrizione: "Ammasso globulare molto denso.", descrizione_didattica: "Scoperto da Pierre Méchain nel 1780.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 76, classe: "Messier", numero: 76, nome: "M 76", nome_comune: "Nebulosa Piccola Manubrio", nome_stellarium: "M 76", tipo: "Nebulosa Planetaria", cod_costellazione: "Per", costellazione: "Perseus", ascensione_retta: 1.70, declinazione: 51.57, magnitudine: 10.10, distanza: "2.500 anni luce", dimensione_angolare: "3' x 1.5'", descrizione: "Nebulosa planetaria bilobata.", descrizione_didattica: "Una delle più deboli del catalogo Messier.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 77, classe: "Messier", numero: 77, nome: "M 77", nome_comune: "Cetus A", nome_stellarium: "M 77", tipo: "Galassia a Spirale", cod_costellazione: "Cet", costellazione: "Cetus", ascensione_retta: 2.71, declinazione: -0.01, magnitudine: 8.90, distanza: "47 milioni anni luce", dimensione_angolare: "7' x 6'", descrizione: "Galassia di Seyfert attiva.", descrizione_didattica: "Ospita un buco nero supermassiccio circondato da un disco di accrescimento.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 78, classe: "Messier", numero: 78, nome: "M 78", nome_comune: "", nome_stellarium: "M 78", tipo: "Nebulosa Diffusa", cod_costellazione: "Ori", costellazione: "Orion", ascensione_retta: 5.77, declinazione: 0.05, magnitudine: 8.30, distanza: "1.600 anni luce", dimensione_angolare: "8' x 6'", descrizione: "La più brillante nebulosa a riflessione del cielo.", descrizione_didattica: "Illuminata da due stelle calde.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 79, classe: "Messier", numero: 79, nome: "M 79", nome_comune: "", nome_stellarium: "M 79", tipo: "Ammasso Globulare", cod_costellazione: "Lep", costellazione: "Lepus", ascensione_retta: 5.40, declinazione: -24.52, magnitudine: 7.70, distanza: "41.000 anni luce", dimensione_angolare: "9'", descrizione: "Ammasso globulare nella Lepre.", descrizione_didattica: "Probabilmente di origine extragalattica (accresciuto da altra galassia nana).", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 80, classe: "Messier", numero: 80, nome: "M 80", nome_comune: "", nome_stellarium: "M 80", tipo: "Ammasso Globulare", cod_costellazione: "Sco", costellazione: "Scorpius", ascensione_retta: 16.28, declinazione: -22.98, magnitudine: 7.30, distanza: "32.600 anni luce", dimensione_angolare: "10'", descrizione: "Denso ammasso globulare nello Scorpione.", descrizione_didattica: "Nel 1860 vi fu osservata una brillante nova.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 81, classe: "Messier", numero: 81, nome: "M 81", nome_comune: "Galassia di Bode", nome_stellarium: "M 81", tipo: "Galassia a Spirale", cod_costellazione: "UMa", costellazione: "Ursa Major", ascensione_retta: 9.93, declinazione: 69.07, magnitudine: 6.90, distanza: "12 milioni anni luce", dimensione_angolare: "21' x 10'", descrizione: "Magnifica galassia a spirale nell'Orsa Maggiore.", descrizione_didattica: "Una delle galassie più luminose del cielo boreale.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 82, classe: "Messier", numero: 82, nome: "M 82", nome_comune: "Galassia Sigaro (Cigar Galaxy)", nome_stellarium: "M 82", tipo: "Galassia Starburst", cod_costellazione: "UMa", costellazione: "Ursa Major", ascensione_retta: 9.96, declinazione: 69.68, magnitudine: 8.40, distanza: "12 milioni anni luce", dimensione_angolare: "11' x 4'", descrizione: "Galassia con intensa attività di formazione stellare (starburst).", descrizione_didattica: "In forte interazione gravitazionale con la vicina M81.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 83, classe: "Messier", numero: 83, nome: "M 83", nome_comune: "Girandola del Sud", nome_stellarium: "M 83", tipo: "Galassia a Spirale", cod_costellazione: "Hya", costellazione: "Hydra", ascensione_retta: 13.62, declinazione: -29.87, magnitudine: 7.50, distanza: "15 milioni anni luce", dimensione_angolare: "13' x 12'", descrizione: "Splendida galassia a spirale barrata.", descrizione_didattica: "Molto ricca di supernove storiche.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 84, classe: "Messier", numero: 84, nome: "M 84", nome_comune: "", nome_stellarium: "M 84", tipo: "Galassia Elissoidale", cod_costellazione: "Vir", costellazione: "Virgo", ascensione_retta: 12.42, declinazione: 12.97, magnitudine: 9.10, distanza: "60 milioni anni luce", dimensione_angolare: "6' x 5'", descrizione: "Galassia lenticolare al centro dell'Ammasso della Vergine.", descrizione_didattica: "Ospita un buco nero supermassiccio con getti di gas.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 85, classe: "Messier", numero: 85, nome: "M 85", nome_comune: "", nome_stellarium: "M 85", tipo: "Galassia Elissoidale", cod_costellazione: "Com", costellazione: "Coma Berenices", ascensione_retta: 12.42, declinazione: 18.19, magnitudine: 9.30, distanza: "60 milioni anni luce", dimensione_angolare: "7' x 5'", descrizione: "Galassia lenticolare di tipo S0.", descrizione_didattica: "Risultato di antiche fusioni galattiche.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 86, classe: "Messier", numero: 86, nome: "M 86", nome_comune: "", nome_stellarium: "M 86", tipo: "Galassia Elissoidale", cod_costellazione: "Vir", costellazione: "Virgo", ascensione_retta: 12.44, declinazione: 12.95, magnitudine: 9.20, distanza: "52 milioni anni luce", dimensione_angolare: "9' x 6'", descrizione: "Galassia lenticolare in rapido movimento verso di noi.", descrizione_didattica: "Membro chiave della Catena di Markarian.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 87, classe: "Messier", numero: 87, nome: "M 87", nome_comune: "Virgo A", nome_stellarium: "M 87", tipo: "Galassia Elissoidale", cod_costellazione: "Vir", costellazione: "Virgo", ascensione_retta: 12.51, declinazione: 12.39, magnitudine: 9.20, distanza: "53.5 milioni anni luce", dimensione_angolare: "8' x 7'", descrizione: "Gigantesca galassia ellittica con getto relativistico.", description_didattica: "Ospita il primo buco nero fotografato dall'EHT.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 88, classe: "Messier", numero: 88, nome: "M 88", nome_comune: "", nome_stellarium: "M 88", tipo: "Galassia a Spirale", cod_costellazione: "Com", costellazione: "Coma Berenices", ascensione_retta: 12.53, declinazione: 14.42, magnitudine: 9.50, distanza: "47 milioni anni luce", dimensione_angolare: "7' x 4'", descrizione: "Galassia a spirale multi-braccio nell'Ammasso della Vergine.", descrizione_didattica: "Bracci regolari e ben definiti.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 89, classe: "Messier", numero: 89, nome: "M 89", nome_comune: "", nome_stellarium: "M 89", tipo: "Galassia Elissoidale", cod_costellazione: "Vir", costellazione: "Virgo", ascensione_retta: 12.60, declinazione: 12.56, magnitudine: 9.80, distanza: "50 milioni anni luce", dimensione_angolare: "5' x 5'", descrizione: "Galassia ellittica quasi perfettamente sferica.", descrizione_didattica: "Povera di gas e polveri interstellari.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 90, classe: "Messier", numero: 90, nome: "M 90", nome_comune: "", nome_stellarium: "M 90", tipo: "Galassia a Spirale", cod_costellazione: "Vir", costellazione: "Virgo", ascensione_retta: 12.62, declinazione: 13.23, magnitudine: 9.50, distanza: "60 milioni anni luce", dimensione_angolare: "10' x 4'", descrizione: "Galassia a spirale con bracci lisci.", description_didattica: "Il suo moto la sta allontanando dall'Ammasso della Vergine.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 91, classe: "Messier", numero: 91, nome: "M 91", nome_comune: "", nome_stellarium: "M 91", tipo: "Galassia a Spirale", cod_costellazione: "Com", costellazione: "Coma Berenices", ascensione_retta: 12.58, declinazione: 14.50, magnitudine: 10.20, distanza: "63 milioni anni luce", dimensione_angolare: "5' x 4'", descrizione: "Galassia a spirale barrata debole.", descrizione_didattica: "Ultimo oggetto aggiunto da Charles Messier nel catalogo originale.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 92, classe: "Messier", numero: 92, nome: "M 92", nome_comune: "", nome_stellarium: "M 92", tipo: "Ammasso Globulare", cod_costellazione: "Her", costellazione: "Hercules", ascensione_retta: 17.29, declinazione: 43.14, magnitudine: 6.50, distanza: "26.700 anni luce", dimensione_angolare: "14'", descrizione: "Splendido ammasso globulare in Ercole.", descrizione_didattica: "Molto antico e luminoso.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 93, classe: "Messier", numero: 93, nome: "M 93", nome_comune: "", nome_stellarium: "M 93", tipo: "Ammasso Aperto", cod_costellazione: "Pup", costellazione: "Puppis", ascensione_retta: 7.75, declinazione: -23.86, magnitudine: 6.00, distanza: "3.600 anni luce", dimensione_angolare: "22'", descrizione: "Ammasso aperto a forma di stella marina.", descrizione_didattica: "Scoperto da Charles Messier nel 1781.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 94, classe: "Messier", numero: 94, nome: "M 94", nome_comune: "Galassia Occhio di Coccodrillo", nome_stellarium: "M 94", tipo: "Galassia a Spirale", cod_costellazione: "Cvn", costellazione: "Canes Venatici", ascensione_retta: 12.86, declinazione: 41.14, magnitudine: 8.10, distanza: "16 milioni anni luce", dimensione_angolare: "11' x 9'", descrizione: "Galassia a spirale con anello di formazione stellare.", descrizione_didattica: "Dotata di un nucleo molto luminoso.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 95, classe: "Messier", numero: 95, nome: "M 95", nome_comune: "", nome_stellarium: "M 95", tipo: "Galassia a Spirale", cod_costellazione: "Leo", costellazione: "Leo", ascensione_retta: 10.75, declinazione: 11.70, magnitudine: 9.70, distanza: "38 milioni anni luce", dimensione_angolare: "4' x 3'", descrizione: "Galassia a spirale barrata nel Leone.", descrizione_didattica: "Anello interno di formazione stellare.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 96, classe: "Messier", numero: 96, nome: "M 96", nome_comune: "", nome_stellarium: "M 96", tipo: "Galassia a Spirale", cod_costellazione: "Leo", costellazione: "Leo", ascensione_retta: 10.78, declinazione: 11.82, magnitudine: 9.20, distanza: "31 milioni anni luce", dimensione_angolare: "7' x 5'", descrizione: "Galassia a spirale asimmetrica.", descrizione_didattica: "Capofila di un gruppo di galassie nel Leone.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 97, classe: "Messier", numero: 97, nome: "M 97", nome_comune: "Nebulosa Gufo", nome_stellarium: "M 97", tipo: "Nebulosa Planetaria", cod_costellazione: "UMa", costellazione: "Ursa Major", ascensione_retta: 11.25, declinazione: 55.02, magnitudine: 11.00, distanza: "2.030 anni luce", dimensione_angolare: "3' x 3'", descrizione: "Famosa nebulosa planetaria con due 'occhi' scuri.", descrizione_didattica: "La sua forma ricorda il volto di un gufo.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 98, classe: "Messier", numero: 98, nome: "M 98", nome_comune: "", nome_stellarium: "M 98", tipo: "Galassia a Spirale", cod_costellazione: "Com", costellazione: "Coma Berenices", ascensione_retta: 12.23, declinazione: 14.94, magnitudine: 10.10, distanza: "44 milioni anni luce", dimensione_angolare: "9' x 3'", descrizione: "Galassia a spirale allungata verso di noi.", descrizione_didattica: "Spettro in blueshift per avvicinamento.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 99, classe: "Messier", numero: 99, nome: "M 99", nome_comune: "Galassia Chioma Girandola", nome_stellarium: "M 99", tipo: "Galassia a Spirale", cod_costellazione: "Com", costellazione: "Coma Berenices", ascensione_retta: 12.32, declinazione: 14.42, magnitudine: 9.80, distanza: "50 milioni anni luce", dimensione_angolare: "5' x 4'", descrizione: "Galassia a spirale 'grand design' con braccio sbilanciato.", descrizione_didattica: "Membro attivo dell'Ammasso della Vergine.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 100, classe: "Messier", numero: 100, nome: "M 100", nome_comune: "", nome_stellarium: "M 100", tipo: "Galassia a Spirale", cod_costellazione: "Com", costellazione: "Coma Berenices", ascensione_retta: 12.39, declinazione: 15.82, magnitudine: 9.40, distanza: "55 milioni anni luce", dimensione_angolare: "7' x 6'", descrizione: "Galassia a spirale brillante 'faccia in vista'.", description_didattica: "Bracci ricchi di ammassi stellari e supernove.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 101, classe: "Messier", numero: 101, nome: "M 101", nome_comune: "Galassia Girandola (Pinwheel)", nome_stellarium: "M 101", tipo: "Galassia a Spirale", cod_costellazione: "UMa", costellazione: "Ursa Major", ascensione_retta: 14.05, declinazione: 54.35, magnitudine: 7.70, distanza: "21 milioni anni luce", dimensione_angolare: "28' x 27'", descrizione: "Grande e spettacolare galassia a spirale.", description_didattica: "Diametro di ben 170.000 anni luce.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 102, classe: "Messier", numero: 102, nome: "M 102", nome_comune: "Galassia Fuso (NGC 5866)", nome_stellarium: "M 102", tipo: "Galassia a Spirale", cod_costellazione: "Dra", costellazione: "Draco", ascensione_retta: 15.11, declinazione: 55.77, magnitudine: 7.70, distanza: "40 milioni anni luce", dimensione_angolare: "5' x 3'", descrizione: "Galassia lenticolare vista rigorosamente di taglio.", descrizione_didattica: "Famoso oggetto storico dibattuto del catalogo.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 103, classe: "Messier", numero: 103, nome: "M 103", nome_comune: "", nome_stellarium: "M 103", tipo: "Ammasso Aperto", cod_costellazione: "Cas", costellazione: "Cassiopeia", ascensione_retta: 1.56, declinazione: 60.65, magnitudine: 7.00, distanza: "10.000 anni luce", dimensione_angolare: "6'", descrizione: "Ammasso aperto a ventaglio in Cassiopea.", descrizione_didattica: "Ultimo oggetto inserito nel catalogo storico originale.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 104, classe: "Messier", numero: 104, nome: "M 104", nome_comune: "Galassia Sombrero", nome_stellarium: "M 104", tipo: "Galassia a Spirale", cod_costellazione: "Vir", costellazione: "Virgo", ascensione_retta: 12.67, declinazione: -11.62, magnitudine: 8.30, distanza: "29 milioni anni luce", dimensione_angolare: "8' x 4'", descrizione: "Spettacolare galassia a spirale con spessa corsia di polveri.", descrizione_didattica: "Il suo aspetto ricorda il cappello messicano Sombrero.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 105, classe: "Messier", numero: 105, nome: "M 105", nome_comune: "", nome_stellarium: "M 105", tipo: "Galassia Elissoidale", cod_costellazione: "Leo", costellazione: "Leo", ascensione_retta: 10.80, declinazione: 12.58, magnitudine: 9.30, distanza: "32 milioni anni luce", dimensione_angolare: "5' x 4'", descrizione: "Galassia ellittica nel gruppo di M96.", descrizione_didattica: "Ospita un buco nero supermassiccio centrale.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] },
+            { id: 106, classe: "Messier", numero: 106, nome: "M 106", nome_comune: "", nome_stellarium: "M 106", tipo: "Galassia a Spirale", cod_costellazione: "Cvn", costellazione: "Canes Venatici", ascensione_retta: 12.32, declinazione: 47.30, magnitudine: 8.30, distanza: "22 milioni anni luce", dimensione_angolare: "18' x 7'", descrizione: "Galassia a spirale luminosa con bracci anomali.", descrizione_didattica: "Nucleo attivo con emissione maser.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 107, classe: "Messier", numero: 107, nome: "M 107", nome_comune: "", nome_stellarium: "M 107", tipo: "Ammasso Globulare", cod_costellazione: "Oph", costellazione: "Ophiuchus", ascensione_retta: 16.54, declinazione: -13.05, magnitudine: 8.10, distanza: "20.900 anni luce", dimensione_angolare: "10'", descrizione: "Ammasso globulare piuttosto lasso.", descrizione_didattica: "Ultimo ammasso globulare aggiunto al catalogo storico.", images: ["https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=300&auto=format&fit=crop"] },
+            { id: 108, classe: "Messier", numero: 108, nome: "M 108", nome_comune: "Galassia Tavola da Surf", nome_stellarium: "M 108", tipo: "Galassia a Spirale", cod_costellazione: "UMa", costellazione: "Ursa Major", ascensione_retta: 11.19, declinazione: 55.67, magnitudine: 10.00, distanza: "45 milioni anni luce", dimensione_angolare: "8' x 2'", descrizione: "Galassia a spirale vista di taglio.", descrizione_didattica: "Ricca di noduli di gas e polveri.", images: ["https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop"] },
+            { id: 109, classe: "Messier", numero: 109, nome: "M 109", nome_comune: "", nome_stellarium: "M 109", tipo: "Galassia a Spirale", cod_costellazione: "UMa", costellazione: "Ursa Major", ascensione_retta: 11.97, declinazione: 53.39, magnitudine: 9.80, distanza: "83.5 milioni anni luce", dimensione_angolare: "7' x 4'", descrizione: "Galassia a spirale barrata nell'Orsa Maggiore.", descrizione_didattica: "Caratterizzata da una barra centrale molto marcata.", images: ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop"] },
+            { id: 110, classe: "Messier", numero: 110, nome: "M 110", nome_comune: "", nome_stellarium: "M 110", tipo: "Galassia Elissoidale", cod_costellazione: "And", costellazione: "Andromeda", ascensione_retta: 0.67, declinazione: 41.69, magnitudine: 8.00, distanza: "2.9 milioni anni luce", dimensione_angolare: "21' x 11'", descrizione: "Galassia ellittica nana satellite di M31.", descrizione_didattica: "Ultimo oggetto aggiunto in via definitiva al Catalogo Messier moderno.", images: ["https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=300&auto=format&fit=crop"] }
+        ];
 
-            const status = document.getElementById('clockStatus');
-            const explain = document.getElementById('dynamicExplain');
+        // Sample Catalog Stars (stelle table)
+        const stelleCatalog = [
+            { id: "HR 7001", nome: "Vega (α Lyr)", mag: 0.03, dist: "25 a.l." },
+            { id: "HR 3982", nome: "Regulus (α Leo)", mag: 1.35, dist: "79 a.l." },
+            { id: "HR 2491", nome: "Sirius (α CMa)", mag: -1.46, dist: "8.6 a.l." },
+            { id: "HR 2326", nome: "Canopus (α Car)", mag: -0.74, dist: "310 a.l." },
+            { id: "HR 5340", nome: "Arcturus (α Boo)", mag: -0.05, dist: "36.7 a.l." }
+        ];
 
-            if (vx === 0) {
-                status.innerText = "Velocità Massima (100%)";
-                status.className = "font-bold text-emerald-400";
-                explain.innerText = '"Sei fermo sulla sedia: consumi tutta la tua energia per viaggiare dritto nel tempo."';
-            } else if (vx < 60) {
-                status.innerText = "Lieve Rallentamento";
-                status.className = "font-bold text-cyan-300";
-                explain.innerText = '"Ti stai muovendo nello spazio. Una piccola quota viene sottratta al tuo tempo."';
-            } else {
-                status.innerText = "Forte Dilatazione Temporale";
-                status.className = "font-bold text-purple-400";
-                explain.innerText = '"Corri molto forte nello spazio: il tuo orologio personale ora rallenta visibilmente!"';
+        let selectedId = 104;
+
+        function goToScreen(screenId) {
+            document.getElementById('screen-welcome').classList.add('hidden');
+            document.getElementById('screen-menu').classList.add('hidden');
+            document.getElementById('screen-messier').classList.add('hidden');
+
+            document.getElementById(screenId).classList.remove('hidden');
+
+            if (screenId === 'screen-messier') {
+                initMessierExplorer();
             }
         }
 
-        function calculateRelativity() {
-            const vPercent = parseFloat(document.getElementById('calcSpeed').value) || 0;
-            const tEarth = parseFloat(document.getElementById('calcYears').value) || 0;
+        function initMessierExplorer() {
+            populateFilters();
+            caricaElencoOggetti();
+            renderStelleCatalog();
+            selezionaOggetto(selectedId);
+        }
 
-            const v = Math.min(Math.max(vPercent, 0), 99.9) / 100;
-            const gamma = 1 / Math.sqrt(1 - v * v);
-            const tShip = tEarth / gamma;
-            const diff = tEarth - tShip;
+        function populateFilters() {
+            // Estrae le voci uniche, rimuove eventuali valori vuoti/nulli e le ordina alfabeticamente
+            const costellazioni = Array.from(new Set(oggettiCatalog.map(o => o.costellazione)))
+                .filter(Boolean)
+                .sort((a, b) => a.localeCompare(b, 'it', { sensitivity: 'base' }));
 
-            document.getElementById('calcResult').innerText = tShip.toFixed(2) + " Anni";
-            document.getElementById('calcDifference').innerText = `L'orologio del viaggiatore ha accumulato ${diff.toFixed(2)} anni in meno rispetto alla Terra!`;
+            const tipi = Array.from(new Set(oggettiCatalog.map(o => o.tipo)))
+                .filter(Boolean)
+                .sort((a, b) => a.localeCompare(b, 'it', { sensitivity: 'base' }));
+
+            // Inserisce prima "Tutte" e poi la lista ordinata dinamicamente
+            const cmbCostellazione = document.getElementById('cmbCostellazione');
+            cmbCostellazione.innerHTML = `<option value="Tutte">Tutte</option>` + costellazioni.map(c => `<option value="${c}">${c}</option>`).join('');
+
+            const cmbClasse = document.getElementById('cmbClasse');
+            cmbClasse.innerHTML = `<option value="Tutte">Tutte</option>` + tipi.map(t => `<option value="${t}">${t}</option>`).join('');
+        }
+
+        function handleFilterChange(type) {
+            caricaElencoOggetti();
+        }
+
+        function caricaElencoOggetti() {
+            const filterConst = document.getElementById('cmbCostellazione').value;
+            const filterType = document.getElementById('cmbClasse').value;
+
+            let filtered = oggettiCatalog.filter(o => {
+                let matchC = (filterConst === 'Tutte' || o.costellazione === filterConst);
+                let matchT = (filterType === 'Tutte' || o.tipo === filterType);
+                return matchC && matchT;
+            });
+
+            // Sorting
+            if (document.getElementById('RadioButton2').checked) {
+                filtered.sort((a, b) => a.costellazione.localeCompare(b.costellazione));
+            } else if (document.getElementById('RadioButton3').checked) {
+                filtered.sort((a, b) => a.tipo.localeCompare(b.tipo));
+            } else if (document.getElementById('RadioButton4').checked) {
+                filtered.sort((a, b) => a.magnitudine - b.magnitudine);
+            } else {
+                filtered.sort((a, b) => a.numero - b.numero);
+            }
+
+            const container = document.getElementById('lstOggettiCatalog');
+            container.innerHTML = filtered.map(o => `
+                <div onclick="selezionaOggetto(${o.id})" 
+                     id="item-${o.id}"
+                     class="px-3 py-1.5 border-b border-gray-200 cursor-pointer flex items-center justify-between hover:bg-blue-50 transition-colors ${o.id === selectedId ? 'list-selected' : 'text-gray-800'}">
+                    <span class="font-bold">${o.nome}</span>
+                    <span class="text-[11px] opacity-80 truncate max-w-[120px]">${o.costellazione}</span>
+                </div>
+            `).join('');
+        }
+
+        function selezionaOggetto(id) {
+            selectedId = id;
+            const obj = oggettiCatalog.find(o => o.id === id);
+            if (!obj) return;
+
+            // Highlight in list
+            document.querySelectorAll('#lstOggettiCatalog > div').forEach(el => {
+                el.classList.remove('list-selected', 'bg-blue-600', 'text-white');
+                el.classList.add('text-gray-800');
+            });
+            const selEl = document.getElementById(`item-${id}`);
+            if (selEl) {
+                selEl.classList.remove('text-gray-800');
+                selEl.classList.add('list-selected');
+            }
+
+            // Populate Metadata
+            document.getElementById('detail-id-class').innerText = `${obj.classe} #${obj.numero}`;
+            document.getElementById('detail-name').innerText = obj.nome;
+            document.getElementById('detail-common').innerText = obj.nome_comune || '-';
+            document.getElementById('detail-stellarium').innerText = obj.nome_stellarium;
+            document.getElementById('detail-type').innerText = obj.tipo;
+            document.getElementById('detail-constellation').innerText = `${obj.costellazione} (${obj.cod_costellazione})`;
+            document.getElementById('detail-coords').innerText = `AR: ${obj.ascensione_retta}h | DEC: ${obj.declinazione}°`;
+            document.getElementById('detail-mag').innerText = `${obj.magnitudine.toFixed(2)}`;
+            document.getElementById('detail-dist').innerText = obj.distanza;
+            document.getElementById('detail-size').innerText = obj.dimensione_angolare;
+
+            document.getElementById('detail-desc').innerText = obj.descrizione;
+            document.getElementById('detail-didattica').innerText = obj.descrizione_didattica;
+
+            // Gallery
+            const gallery = document.getElementById('gallery-container');
+            gallery.innerHTML = obj.images.map((img, idx) => `
+                <div class="relative h-20 bg-black rounded border border-gray-300 overflow-hidden shadow-sm">
+                    <img src="${img}" alt="Foto ${idx+1}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/200x150/0f172a/ffffff?text=Immagine+Non+Disponibile'">
+                </div>
+            `).join('') + `<div class="relative h-20 bg-gray-200 rounded border border-dashed border-gray-400 flex items-center justify-center text-gray-500 text-[10px]">Mappa AR</div>`;
+        }
+
+        function renderStelleCatalog() {
+            document.getElementById('stelle-count').innerText = stelleCatalog.length;
+            const container = document.getElementById('stelle-catalog');
+            container.innerHTML = stelleCatalog.map(s => `
+                <div class="p-1.5 bg-gray-50 border border-gray-200 rounded">
+                    <div class="font-bold text-gray-900">${s.id}: ${s.nome}</div>
+                    <div class="text-[10px] text-gray-600 flex justify-between">
+                        <span>Mag: ${s.mag}</span>
+                        <span>Dist: ${s.dist}</span>
+                    </div>
+                </div>
+            `).join('');
         }
 
         window.onload = function() {
-            initChart();
-            document.getElementById('speedSlider').addEventListener('input', (e) => {
-                updateChart(parseInt(e.target.value));
-            });
-            document.getElementById('calcSpeed').addEventListener('input', calculateRelativity);
-            document.getElementById('calcYears').addEventListener('input', calculateRelativity);
-        };
+            // App initialized properly
+        }
     </script>
 </body>
 </html>
