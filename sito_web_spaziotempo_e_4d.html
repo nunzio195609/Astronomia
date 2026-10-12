@@ -287,6 +287,17 @@
     </div>
 
     <script>
+let archivioImmagini = {};
+
+// Carica il file JSON all'avvio della pagina
+fetch('Messier/manifest.json')
+    .then(response => response.json())
+    .then(data => {
+        archivioImmagini = data;
+        console.log("Manifest immagini caricato con successo!");
+    })
+    .catch(error => console.error("Errore nel caricamento del manifest:", error));
+        
         function showMessage(text) {
             document.getElementById('modal-message').innerText = text;
             document.getElementById('custom-modal').classList.remove('hidden');
@@ -551,6 +562,28 @@
         window.onload = function() {
             // App initialized properly
         }
+// Quando selezioni l'oggetto:
+function caricaMiniatureDinamiche(numeroOggetto) {
+    const numFormattato = String(numeroOggetto).padStart(3, '0');
+    const chiave = `M${numFormattato}`; // es. "M001"
+    
+    const gallery = document.getElementById('gallery-container');
+    
+    // Prende l'array dei file reali da manifest.json
+    const listaFile = archivioImmagini[chiave] || [];
+
+    if (listaFile.length === 0) {
+        gallery.innerHTML = '<div class="text-xs text-gray-400 p-2">Nessuna immagine trovata.</div>';
+        return;
+    }
+
+    // Ricostruisce il percorso completo: Messier/M001/nome_file_reale.jpg
+    gallery.innerHTML = listaFile.map((nomeFile, idx) => `
+        <div class="relative h-20 bg-black rounded border border-gray-300 overflow-hidden shadow-sm cursor-pointer hover:opacity-80 transition">
+            <img src="Messier/${chiave}/${nomeFile}" alt="Foto ${idx+1}" class="w-full h-full object-cover">
+        </div>
+    `).join('');
+}        
     </script>
 </body>
 </html>
