@@ -287,6 +287,29 @@
     </div>
 
     <script>
+// Apre il visore a schermo intero con l'immagine selezionata
+function apriVisore(srcImmagine) {
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    
+    modalImg.src = srcImmagine;
+    modal.classList.remove('hidden'); // Mostra la finestra modale
+}
+
+// Chiude il visore
+function chiudiVisore() {
+    const modal = document.getElementById('image-modal');
+    modal.classList.add('hidden'); // Nasconde la finestra modale
+}
+
+// Opzionale: Permette di chiudere il visore anche premendo il tasto "ESC" sulla tastiera
+document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") {
+        chiudiVisore();
+    }
+});
+        
+        
 let archivioImmagini = {};
 
 // Carica il file JSON all'avvio della pagina
@@ -579,13 +602,27 @@ function caricaMiniatureDinamiche(numeroOggetto) {
         return;
     }
 
-    // Ricostruisce il percorso completo: Messier/M001/nome_file_reale.jpg
-    gallery.innerHTML = listaFile.map((nomeFile, idx) => `
-        <div class="relative h-20 bg-black rounded border border-gray-300 overflow-hidden shadow-sm cursor-pointer hover:opacity-80 transition">
-            <img src="Messier/${chiave}/${nomeFile}" alt="Foto ${idx+1}" class="w-full h-full object-cover">
-        </div>
-    `).join('');
+    // Ricostruisce il percorso completo e aggiunge l'evento per aprire il visore
+    gallery.innerHTML = listaFile.map((nomeFile, idx) => {
+        const percorsoCompleto = `Messier/${chiave}/${nomeFile}`;
+        return `
+            <div class="relative h-20 bg-black rounded border border-gray-300 overflow-hidden shadow-sm cursor-pointer hover:opacity-80 transition" 
+                 onclick="apriVisore('${percorsoCompleto}')">
+                <img src="${percorsoCompleto}" alt="Foto ${idx+1}" class="w-full h-full object-cover">
+            </div>
+        `;
+    }).join('');    
+    
 }        
     </script>
+<!-- Visore Immagini (Modal Fullscreen) -->
+<div id="image-modal" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center hidden" onclick="chiudiVisore()">
+    <!-- Pulsante di chiusura in alto a destra -->
+    <button class="absolute top-4 right-6 text-white text-4xl font-bold hover:text-gray-300 focus:outline-none">&times;</button>
+    
+    <!-- Immagine ingrandita (blocchiamo la chiusura al click sull'immagine stessa) -->
+    <img id="modal-img" src="" alt="Immagine ingrandita" class="max-w-[90%] max-h-[90%] object-contain rounded shadow-2xl" onclick="event.stopPropagation()">
+</div>
+    
 </body>
 </html>
