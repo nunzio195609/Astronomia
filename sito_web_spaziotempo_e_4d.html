@@ -543,6 +543,8 @@ fetch('Messier/manifest.json')
                     <img src="${img}" alt="Foto ${idx+1}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/200x150/0f172a/ffffff?text=Immagine+Non+Disponibile'">
                 </div>
             `).join('') + `<div class="relative h-20 bg-gray-200 rounded border border-dashed border-gray-400 flex items-center justify-center text-gray-500 text-[10px]">Mappa AR</div>`;
+            // 👉 INSERISCI QUI LA CHIAMATA:
+              caricaMiniatureDinamiche(obj.numero);
         }
 
         function renderStelleCatalog() {
